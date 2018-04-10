@@ -34,7 +34,7 @@ public class CryptoController {
                                       @RequestParam(value="e", defaultValue="CCCAGG") String e,
                                       @RequestParam(value="extraParams", defaultValue="NotAvailable") String extraParams,
                                       @RequestParam(value="sign", defaultValue="false") boolean sign,
-                                      @RequestParam(value="limit", defaultValue="1000") int limit,
+                                      @RequestParam(value="limit", defaultValue="100") int limit,
                                       @RequestParam(value="persist", defaultValue="true") boolean persist) throws SQLIntegrityConstraintViolationException {
         return cryptoCompareService.getHistoHour(fsym, tsym, e, extraParams, sign, limit, persist);
     }
