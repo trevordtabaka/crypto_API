@@ -2,8 +2,8 @@ package crypto.service;
 
 
 import crypto.mappers.CryptoCompareMapper;
-import crypto.model.histohour.external.Data;
-import crypto.model.histohour.external.HistoHourRoot;
+import crypto.model.Data;
+import crypto.model.histohour.external.HistoRoot;
 import crypto.model.histohour.internal.DataHourSummary;
 import crypto.model.histohour.internal.SqlDataSummary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +23,19 @@ public class CryptoCompareService {
     CryptoCompareMapper cryptoCompareMapper;
 
 
-    public HistoHourRoot getHistoHour(String fsym, String tsym, String e, String extraParams, boolean sign, int limit, boolean persist) throws SQLIntegrityConstraintViolationException {
+    public HistoRoot getHistoHour(String timeFrame, String fsym, String tsym, String e, String extraParams, boolean sign, int limit, boolean persist) throws SQLIntegrityConstraintViolationException {
 
         // Query
-        String fQuery = "https://min-api.cryptocompare.com/data/histohour?fsym="+fsym+"&tsym="+tsym+"&e="+e+"&extraParams="+extraParams+"&sign="+sign+"&limit="+limit+"&persist="+persist;
+        String fQuery = "https://min-api.cryptocompare.com/data/histo"+ timeFrame + "?fsym="+fsym+"&tsym="+tsym+"&e="+e+"&extraParams="+extraParams+"&sign="+sign+"&limit="+limit+"&persist="+persist;
         System.out.println(fQuery);
-        HistoHourRoot hourResponse = restTemplate.getForObject(
-                fQuery, HistoHourRoot.class);
-        HistoHourRoot histoHourRoot = new HistoHourRoot();
+        HistoRoot response = restTemplate.getForObject(
+                fQuery, HistoRoot.class);
+        HistoRoot histoRoot = new HistoRoot();
 
         if(persist){
-            histoHourRoot.setResponse(hourResponse.getResponse());
+            histoRoot.setResponse(response.getResponse());
 
-            for (Data element : hourResponse.getData()) {
+            for (Data element : response.getData()) {
                 DataHourSummary dataSummary = new DataHourSummary();
                 try{
 
@@ -49,7 +49,7 @@ public class CryptoCompareService {
                     dataSummary.setLow(element.getLow());
 
 
-                    insertHourSummary(dataSummary);
+                    insertHourSummary(timeFrame,dataSummary);
                     System.out.println("Added not unique data " + dataSummary.getTime());
                 }catch(Exception dupE){
                     System.out.println("Caught a duplicate entry");
@@ -62,12 +62,19 @@ public class CryptoCompareService {
 
         }
 
-        return hourResponse;
+        return response;
     }
-    public void insertHourSummary(DataHourSummary result) throws Exception
+    public void insertHourSummary(String timeFrame, DataHourSummary result) throws Exception
     {
+        switch (timeFrame){
 
-        cryptoCompareMapper.insertHourSummary(result);
+            case "minute":
+                cryptoCompareMapper.insertMinuteSummary(result);
+            case "hour":
+                cryptoCompareMapper.insertHourSummary(result);
+            case "day":
+                cryptoCompareMapper.insertDaySummary(result);
+        }
 
     }
 
@@ -78,6 +85,4 @@ public class CryptoCompareService {
 
     }
 
-//    public HistoDailyRoot getHistoDaily(String fsym, String tsym, String e, String extraParams, boolean sign, int limit, boolean persist) {
-//    }
 }

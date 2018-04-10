@@ -1,4 +1,4 @@
-package crypto.model.histohour.external;
+package crypto.model;
 
 public class Data {
 

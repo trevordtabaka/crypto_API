@@ -1,8 +1,10 @@
 package crypto.model.histohour.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import crypto.model.ConversionType;
+import crypto.model.Data;
 
-public class HistoHourRoot {
+public class HistoRoot {
 
     @JsonProperty("Response")
     String response;
