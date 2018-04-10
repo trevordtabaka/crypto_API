@@ -21,20 +21,12 @@ public class CryptoController {
 
     /**
      *
-     * @param fsym - You can specify the cryptocurrencY you want to query separated by commas. i.e. BTC,ETH,...
-     * @param tsym- You can specify the fiatcurrencies you want to compare against separated by commas. i.e. USD,EUR,...
-     * @param persist - Persist set to true will notify the service that you wish to store the data into your database
-     * @return- Returns a call to the method getMultiData() in the service package with the specified variables
-     */
-
-    /**
-     *
      * @param fsym - You can specify the cryptocurrency you want to query  i.e. BTC
      * @param tsym - You can specify the currency you want to compare against i.e. USD
-     * @param e -
-     * @param extraParams -
-     * @param sign -
-     * @param limit - This sets how many hours back you want to retrieve data from cryptocompare. Max 1000. Default 100
+     * @param e - Name of exchange
+     * @param extraParams - Name of your application
+     * @param sign - If set to true, the server will sign the requests.
+     * @param limit - This sets how many hours back you want to retrieve data from cryptocompare. Max 1000 for days and hours and 2000 for minutes. Default set to 100 here
      * @param persist - When persist is true, it triggers the saving the response into the mySQL database
      * @return
      * @throws SQLIntegrityConstraintViolationException
@@ -51,16 +43,11 @@ public class CryptoController {
         return cryptoCompareService.getHistoHour(timeFrame, fsym, tsym, e, extraParams, sign, limit, persist);
     }
 
-//    @RequestMapping("/")
-//    public HistoDailyRoot getHistoHour(@RequestParam(value="fsym", defaultValue="BTC") String fsym,
-//                                      @RequestParam(value="tsym", defaultValue="USD") String tsym,
-//                                      @RequestParam(value="e", defaultValue="CCCAGG") String e,
-//                                      @RequestParam(value="extraParams", defaultValue="NotAvailable") String extraParams,
-//                                      @RequestParam(value="sign", defaultValue="false") boolean sign,
-//                                      @RequestParam(value="limit", defaultValue="168") int limit,
-//                                      @RequestParam(value="persist", defaultValue="true") boolean persist) throws SQLIntegrityConstraintViolationException {
-//        return cryptoCompareService.getHistoDaily(fsym, tsym, e, extraParams, sign, limit, persist);
-//    }
+    /**
+     *
+     * @param fsym - Enter the cryptocurrency you want to get hourly data back from
+     * @return calls the service method
+     */
     @RequestMapping("/{fsym}")
     public ArrayList<SqlDataSummary> getHourDataByFsym(@PathVariable(value= "fsym")String fsym) {
         return cryptoCompareService.getHourDataByFsym(fsym);

@@ -2,7 +2,7 @@ package crypto.model.histohour.internal;
 
 import java.util.Date;
 
-public class DataHourSummary {
+public class DataSummary {
 
     int id;
     String fsym;
