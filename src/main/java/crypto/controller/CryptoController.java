@@ -40,7 +40,7 @@ public class CryptoController {
                                   @RequestParam(value="sign", defaultValue="false") boolean sign,
                                   @RequestParam(value="limit", defaultValue="100") int limit,
                                   @RequestParam(value="persist", defaultValue="true") boolean persist) throws SQLIntegrityConstraintViolationException {
-        return cryptoCompareService.getHistoHour(timeFrame, fsym, tsym, e, extraParams, sign, limit, persist);
+        return cryptoCompareService.getHistoData(timeFrame, fsym, tsym, e, extraParams, sign, limit, persist);
     }
 
     /**

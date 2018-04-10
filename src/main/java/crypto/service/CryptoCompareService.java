@@ -28,7 +28,7 @@ public class CryptoCompareService {
     CryptoCompareMapper cryptoCompareMapper;
 
 
-    public HistoRoot getHistoHour(String timeFrame, String fsym, String tsym, String e, String extraParams, boolean sign, int limit, boolean persist) throws SQLIntegrityConstraintViolationException {
+    public HistoRoot getHistoData(String timeFrame, String fsym, String tsym, String e, String extraParams, boolean sign, int limit, boolean persist) throws SQLIntegrityConstraintViolationException {
 
      //////// Query sent to the cryptocompare api ////////
         String fQuery = "https://min-api.cryptocompare.com/data/histo"+ timeFrame + "?fsym="+fsym+"&tsym="+tsym+"&e="+e+"&extraParams="+extraParams+"&sign="+sign+"&limit="+limit+"&persist="+persist;
