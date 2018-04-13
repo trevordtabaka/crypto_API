@@ -88,10 +88,13 @@ public class CryptoCompareService {
 
             case "minute":
                 cryptoCompareMapper.insertMinuteSummary(result);
+                break;
             case "hour":
                 cryptoCompareMapper.insertHourSummary(result);
+                break;
             case "day":
                 cryptoCompareMapper.insertDaySummary(result);
+                break;
         }
 
     }
