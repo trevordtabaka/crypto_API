@@ -12,7 +12,11 @@ import java.util.ArrayList;
 public interface CryptoCompareMapper {
 
 //////////// SELECT statement for getting hourly historical data back from the mySQL DB ///////////////////////
+
+    String GET_FSYM_MINUTE = ("SELECT * FROM `mybatis-test`.historical_minute where fsym = #{fsym}");
     String GET_FSYM_HOUR = ("SELECT * FROM `mybatis-test`.historical_hour where fsym = #{fsym}");
+
+    String GET_FSYM_DAY = ("SELECT * FROM `mybatis-test`.historical_day where fsym = #{fsym}");
 
     /////////// INSERT statements for inserting DataSummary model objects to the mySQL database ////////////////
     String INSERT_HOURSUMMARY = ("INSERT INTO `mybatis-test`.historical_minute (fsym,tsym,time,dateTime, close, open, high, low) " +
@@ -34,5 +38,9 @@ public interface CryptoCompareMapper {
     @Select(GET_FSYM_HOUR)
     ArrayList<SqlDataSummary> getHourDataByFsym(String fsym);
 
+    @Select(GET_FSYM_MINUTE)
+    ArrayList<SqlDataSummary> getMinuteDataByFsym(String fsym);
 
+    @Select(GET_FSYM_DAY)
+    ArrayList<SqlDataSummary> getDayDataByFsym(String fsym);
 }

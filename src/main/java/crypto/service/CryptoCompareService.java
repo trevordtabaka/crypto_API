@@ -106,4 +106,13 @@ public class CryptoCompareService {
 
     }
 
+    public ArrayList<SqlDataSummary> getMinuteDataByFsym(String fsym) {
+        return cryptoCompareMapper.getMinuteDataByFsym(fsym);
+
+    }
+
+    public ArrayList<SqlDataSummary> getDayDataByFsym(String fsym) {
+        return cryptoCompareMapper.getDayDataByFsym(fsym);
+
+    }
 }

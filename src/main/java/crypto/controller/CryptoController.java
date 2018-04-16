@@ -45,12 +45,21 @@ public class CryptoController {
 
     /**
      *
-     * @param fsym - Enter the cryptocurrency you want to get hourly data back from
+     * @param fsym - Enter the cryptocurrency you want to get hourly data back from mySQL db.
+     *            Returns all data of a certain symbol, not distinguishing between the compared currencies.
      * @return calls the service method
      */
     @RequestMapping("/{fsym}")
+    public ArrayList<SqlDataSummary> getMinuteDataByFsym(@PathVariable(value= "fsym")String fsym) {
+        return cryptoCompareService.getMinuteDataByFsym(fsym);
+    }
+    @RequestMapping("/{fsym}")
     public ArrayList<SqlDataSummary> getHourDataByFsym(@PathVariable(value= "fsym")String fsym) {
         return cryptoCompareService.getHourDataByFsym(fsym);
+    }
+    @RequestMapping("/{fsym}")
+    public ArrayList<SqlDataSummary> getDayDataByFsym(@PathVariable(value= "fsym")String fsym) {
+        return cryptoCompareService.getDayDataByFsym(fsym);
     }
 
 }
